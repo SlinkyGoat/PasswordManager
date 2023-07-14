@@ -32,7 +32,6 @@ public class Security {
 		byte upper = 3;
 		byte digit = 3;
 		byte special = 3;
-		byte repeated = 3;
 		//again, probably inefficient code, but I'll make it better later
 		char character;
 		for(int x = 0; x < 20; ++x) {
