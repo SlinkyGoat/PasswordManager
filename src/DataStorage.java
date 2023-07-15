@@ -41,4 +41,16 @@ public class DataStorage {
 		
 	}
 	
+	public boolean deleteAllData() {
+		File f = new File(System.getenv("APPDATA") + "\\PM\\" + "test.txt");
+		f.delete();
+		try {
+			f.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+		return true;
+	}
+	
 }
