@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.FileWriter;
 
 public class DataStorage {
 
@@ -23,6 +24,21 @@ public class DataStorage {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean addItem(String service, String password) {
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(System.getenv("APPDATA") + "\\PasswordManager\\");
+			writer.append("\n" + service);
+			writer.append("\n" + password);
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+		return true;
+		
 	}
 	
 }
