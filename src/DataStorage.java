@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.io.FileWriter;
 
 public class DataStorage {
@@ -47,10 +48,17 @@ public class DataStorage {
 		try {
 			f.createNewFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean rewriteData(HashMap<String, String> data, int start) {
+		// TODO write a method that can be called to overrite previous data
+		// start variable is used to determine the earliest location in the file to start rewriting
+		// this is to not have to rewrite the entire file when the second to last
+		// item was changed
+		return false;
 	}
 	
 }
