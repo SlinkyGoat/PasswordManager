@@ -14,11 +14,23 @@ public class MainRun {
 		frame.setLayout(null);
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		
 		//create Title image
 		JLabel title = new JLabel(new ImageIcon("assets\\PM_Title.png"));
 		title.setBounds(0,0,1000,150);
 		frame.add(title);
+		
+		//create search bar at top of screen
+		//creating the text field
+		JTextField searchText = new JTextField();
+		searchText.setBounds(65, 200, 150, 30);
+		frame.add(searchText);
+		
+		//creating the search button
+		JButton searchButton = new JButton("Search");
+		searchButton.setBounds(235, 200, 100, 30);
+		frame.add(searchButton);
 		
 		//finishing frame
 		frame.setVisible(true);
