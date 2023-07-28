@@ -70,4 +70,16 @@ public class DataStorage {
 		return true;
 	}
 	
+	public boolean rewriteData(String[][] data) {
+		if(!deleteAllData()) {
+			return false;
+		}
+		for(int x = 0; x < data.length; x++) {
+			if(!addItem(data[x][0], data[x][1])) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }
