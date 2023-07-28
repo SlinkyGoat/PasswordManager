@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -61,14 +62,23 @@ public class DataStructure {
 		--this.items;
 	}
 	
-//	public boolean editService(String service, String newService) {
-//		// TODO edit the name of the given service to newService
-//		return false;
-//	}
-	
 	public void editPassword(String service, String newPassword) {
+
 		//put overwrites the old value with the new value if key already exists
 		this.data.put(service, newPassword);
 	}
 	
+	
+
+	// returns the HashMap "data" as a 2d array
+	public String[][] hashToArr(){
+		String[][] myData = new String[this.items][2];
+		int n = 0;
+		for(Map.Entry<String, String> set : data.entrySet()) {
+			myData[n][0] = set.getKey();
+			myData[n][1] = set.getValue();
+			++n;
+		}
+		return myData;
+	}
 }
