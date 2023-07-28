@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.io.FileWriter;
 
 public class DataStorage {
@@ -14,6 +15,7 @@ public class DataStorage {
 		return true;
 	}
 	
+	// creates file to store service and password data
 	public boolean createPasswordDataFile() {
 		File PMData = new File(System.getenv("APPDATA") + "\\PasswordManager\\data.txt");
 		try {
@@ -27,6 +29,7 @@ public class DataStorage {
 		return true;
 	}
 	
+	// adds service and password to file containing data
 	public boolean addItem(String service, String password) {
 		FileWriter writer = null;
 		try {
@@ -42,6 +45,7 @@ public class DataStorage {
 		
 	}
 	
+	// deletes all the data in the file
 	public boolean deleteAllData() {
 		File f = new File(System.getenv("APPDATA") + "\\PM\\" + "test.txt");
 		f.delete();
@@ -53,12 +57,17 @@ public class DataStorage {
 		return true;
 	}
 	
-	public boolean rewriteData(HashMap<String, String> data, int start) {
-		// TODO write a method that can be called to overrite previous data
-		// start variable is used to determine the earliest location in the file to start rewriting
-		// this is to not have to rewrite the entire file when the second to last
-		// item was changed
-		return false;
+	// rewrites all data into data file using the data hashmap
+	public boolean rewriteData(HashMap<String, String> data) {
+		if(!deleteAllData()) {
+			return false;
+		}
+		for(Map.Entry<String, String> set : data.entrySet()) {
+			if(!addItem(set.getKey(), set.getValue())) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }
