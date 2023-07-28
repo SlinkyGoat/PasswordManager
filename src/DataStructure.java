@@ -9,6 +9,9 @@ public class DataStructure {
 	public HashMap<String, String> data = new HashMap<String, String>();
 	public int items = 0;
 
+	// enters all services and correlated passwords into the hashmap "data"
+	// keys are the services
+	// values are the passwords
 	public void collectData(){
 		
 //		HashMap<String, String> data = new HashMap<String, String>();
@@ -45,6 +48,27 @@ public class DataStructure {
 		
 //		return data;
 		
+	}
+	
+	public void add(String service, String password) {
+		// TODO add an item to the data structure
+		this.data.put(service, password);
+		++this.items;
+	}
+	
+	public void remove(String service) {
+		this.data.remove(service);
+		--this.items;
+	}
+	
+//	public boolean editService(String service, String newService) {
+//		// TODO edit the name of the given service to newService
+//		return false;
+//	}
+	
+	public void editPassword(String service, String newPassword) {
+		//put overwrites the old value with the new value if key already exists
+		this.data.put(service, newPassword);
 	}
 	
 }
