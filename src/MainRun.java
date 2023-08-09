@@ -84,22 +84,9 @@ public class MainRun {
 	private static void createAndShowGUI(String[][] data) {
 		final JFrame frame = new JFrame("Password Manager");
 		
-		//initialize window
-//		frame.setSize(1000,800);
-//		frame.setLayout(null);
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-						
-//		//creating add item button
-//		JButton addItemButton = new JButton("Add Item");
-//		addItemButton.setBounds(65, 720, 100, 30);
-//		frame.add(addItemButton);
-		
-		//creating table
-		
-		// start y=280, end y=670
-		// add scrollpane
 		
 		addComponentsToPane(frame.getContentPane(), data);
 		
@@ -124,8 +111,6 @@ public class MainRun {
 				createAndShowGUI(data);
 			}
 		});
-		
-//		createAndShowGUI();
 		
 		
 	}
