@@ -18,7 +18,7 @@ public class DataStructure {
 //		HashMap<String, String> data = new HashMap<String, String>();
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\PM\\" + "test.txt"));
+			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\PM\\" + "data.txt"));
 		} catch (FileNotFoundException e) {
 			System.out.println("File Reader unable to be created in collectData()");
 //			return null;
@@ -72,6 +72,7 @@ public class DataStructure {
 
 	// returns the HashMap "data" as a 2d array
 	public String[][] hashToArr(){
+		collectData();
 		String[][] myData = new String[this.items][2];
 		int n = 0;
 		for(Map.Entry<String, String> set : data.entrySet()) {
@@ -81,4 +82,6 @@ public class DataStructure {
 		}
 		return myData;
 	}
+	
+	
 }

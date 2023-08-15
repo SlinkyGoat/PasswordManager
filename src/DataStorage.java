@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.FileWriter;
@@ -33,12 +34,12 @@ public class DataStorage {
 	public boolean addItem(String service, String password) {
 		FileWriter writer = null;
 		try {
-			writer = new FileWriter(System.getenv("APPDATA") + "\\PasswordManager\\");
+			writer = new FileWriter(System.getenv("APPDATA") + "\\PM\\" + "data.txt");
 			writer.append("\n" + service);
 			writer.append("\n" + password);
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("addItem error");
 			return false;
 		}
 		return true;
@@ -47,11 +48,12 @@ public class DataStorage {
 	
 	// deletes all the data in the file
 	public boolean deleteAllData() {
-		File f = new File(System.getenv("APPDATA") + "\\PM\\" + "test.txt");
+		File f = new File(System.getenv("APPDATA") + "\\PM\\" + "data.txt");
 		f.delete();
 		try {
 			f.createNewFile();
 		} catch (IOException e) {
+			System.out.println("Error deleting file");
 			return false;
 		}
 		return true;
@@ -70,15 +72,24 @@ public class DataStorage {
 		return true;
 	}
 	
-	public boolean rewriteData(String[][] data) {
+	// rewrites data in the data file using a 2d array rather than a hashmap
+	// CHECK THIS METHOD IF APP NOT WORKING
+	public boolean rewriteData(String[][] data) throws IOException {
 		if(!deleteAllData()) {
 			return false;
 		}
-		for(int x = 0; x < data.length; x++) {
-			if(!addItem(data[x][0], data[x][1])) {
-				return false;
-			}
+		FileWriter writer = null;
+		
+		writer = new FileWriter(System.getenv("APPDATA") + "\\PM\\" + "data.txt");
+		writer.append(data[0][0] + "\n");
+		writer.append(data[0][1]);
+		for(int x = 1; x < data.length; x++) {
+			writer.append("\n" + data[x][0]);
+			writer.append("\n" + data[x][1]);
 		}
+		
+		writer.close();
+		
 		return true;
 	}
 	
