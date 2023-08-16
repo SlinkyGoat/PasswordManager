@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -43,9 +44,12 @@ public class MainRun {
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridwidth = 3;
-		// Insets(top, left, bottom, right)
 		c.insets = new Insets(0,65,0,30);
-//		c.fill = GridBagConstraints.NONE;
+		searchBar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				search(searchBar);
+			}
+		});
 		pane.add(searchBar, c);
 		
 		JButton searchButton = new JButton("Search");
@@ -53,9 +57,12 @@ public class MainRun {
 		c.gridy = 1;
 		c.gridwidth = 1;
 		c.insets = new Insets(0,0,0,65);
+		// this filters the JTable to show items related to entered text, still not completely sure how it works
+		// took this snippet of code from stackoverflow
+		// https://stackoverflow.com/questions/29095906/filtering-a-jtable
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO add method action method here
+				search(searchBar);
 			}
 		});
 		pane.add(searchButton, c);
@@ -111,7 +118,6 @@ public class MainRun {
 		c.insets = new Insets(10, 0, 30, 65);
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO add method action method here
 				if(!newServiceName.getText().equals("") && !newPasswordName.getText().equals("")) {
 					DefaultTableModel dtm = (DefaultTableModel) table.getModel();
 					dtm.addRow(new Object[]{newServiceName.getText(), newPasswordName.getText()});
@@ -130,6 +136,17 @@ public class MainRun {
 		});
 		pane.add(addButton, c);
 		
+	}
+	
+	private static void search(JTextField searchbar) {
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+		table.setRowSorter(sorter);
+		if(searchbar.getText().length() != 0) {
+			sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchbar.getText()));
+		}
+		else {
+			sorter.setRowFilter(null);
+		}
 	}
 
 	private static void createAndShowGUI() {
@@ -166,8 +183,6 @@ public class MainRun {
 		frame.pack();
 		frame.setMinimumSize(frame.getMinimumSize());
 		frame.setVisible(true);
-		
-		System.out.println(frame.getContentPane().getComponent(3));
 		
 	}
 	
