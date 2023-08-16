@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import java.awt.*;
@@ -16,7 +17,9 @@ public class MainRun {
 	static DataStructure structure = new DataStructure();
 	static String data[][] = structure.hashToArr();
 	static String column[]={"Service","Password"};
-	static JTable table = new JTable(data, column);
+//	static JTable table = new JTable(data, column);
+	static JTable table = new JTable(new DefaultTableModel(data, column));
+	
 	
 	public static void addComponentsToPane(Container pane) {
 		if (RIGHT_TO_LEFT) {
@@ -41,7 +44,7 @@ public class MainRun {
 		c.gridy = 1;
 		c.gridwidth = 3;
 		// Insets(top, left, bottom, right)
-		c.insets = new Insets(0,65,0,65);
+		c.insets = new Insets(0,65,0,30);
 //		c.fill = GridBagConstraints.NONE;
 		pane.add(searchBar, c);
 		
@@ -50,6 +53,11 @@ public class MainRun {
 		c.gridy = 1;
 		c.gridwidth = 1;
 		c.insets = new Insets(0,0,0,65);
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO add method action method here
+			}
+		});
 		pane.add(searchButton, c);
 		
 //		String column[]={"Service","Password"};
@@ -65,27 +73,62 @@ public class MainRun {
 		JScrollPane scroll = new JScrollPane(table);
 		pane.add(scroll, c);
 		
-		JButton addButton = new JButton("Add");
-		c.gridwidth = 1;
+		JLabel newServiceLabel = new JLabel("*Service Name");
 		c.gridx = 0;
 		c.gridy = 3;
-		pane.add(addButton, c);
+		c.gridwidth = 1;
+		c.insets = new Insets(0,65,0,30);
+		pane.add(newServiceLabel, c);
 		
-		//c.insets = new Insets(30,65,30,30);
+		JLabel newPasswordLabel = new JLabel("*Password");
+		c.gridx = 1;
+		c.gridy = 3;
+		c.gridwidth = 1;
+		c.insets = new Insets(0,10,0,30);
+		pane.add(newPasswordLabel, c);
 		
 		JTextField newServiceName = new JTextField();
-		c.gridx = 1;
+		c.gridx = 0;
+		c.gridy = 4;
 		c.gridwidth = 1;
-		c.ipadx = 400;
-		c.insets = new Insets(30, 10, 30, 10);
+		c.ipadx = 450;
+		c.insets = new Insets(10, 65, 30, 30);
 		pane.add(newServiceName, c);
 		
 		JTextField newPasswordName = new JTextField();
-		c.gridx = 2;
+		c.gridx = 1;
+		c.gridy = 4;
 		c.gridwidth = 1;
-		c.ipadx = 0;
-		c.insets = new Insets(30, 10, 30, 30);
+		c.ipadx = 450;
+		c.insets = new Insets(10, 10, 30, 30);
 		pane.add(newPasswordName, c);
+		
+		JButton addButton = new JButton("Add");
+		c.gridwidth = 1;
+		c.gridx = 3;
+		c.gridy = 4;
+		c.ipadx = 0;
+		c.insets = new Insets(10, 0, 30, 65);
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO add method action method here
+				if(!newServiceName.getText().equals("") && !newPasswordName.getText().equals("")) {
+					DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+					dtm.addRow(new Object[]{newServiceName.getText(), newPasswordName.getText()});
+					newServiceName.setText("");
+					newPasswordName.setText("");
+				}
+				else {
+					if(newServiceName.getText().equals("")) {
+						newServiceName.setText("Enter Service Name Here");
+					}
+					if(newPasswordName.getText().equals("")) {
+						newPasswordName.setText("Enter Password Here");
+					}
+				}
+			}
+		});
+		pane.add(addButton, c);
 		
 	}
 
@@ -113,7 +156,7 @@ public class MainRun {
 				try {
 					storage.rewriteData(tableData);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					// Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

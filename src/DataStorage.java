@@ -81,11 +81,15 @@ public class DataStorage {
 		FileWriter writer = null;
 		
 		writer = new FileWriter(System.getenv("APPDATA") + "\\PM\\" + "data.txt");
-		writer.append(data[0][0] + "\n");
-		writer.append(data[0][1]);
+		if(data.length != 0 && !data[0][0].equals("")) {
+			writer.append(data[0][0] + "\n");
+			writer.append(data[0][1]);
+		}
 		for(int x = 1; x < data.length; x++) {
-			writer.append("\n" + data[x][0]);
-			writer.append("\n" + data[x][1]);
+			if(!data[x][0].equals("")) {
+				writer.append("\n" + data[x][0]);
+				writer.append("\n" + data[x][1]);
+			}
 		}
 		
 		writer.close();
